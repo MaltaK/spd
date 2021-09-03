@@ -1,0 +1,33 @@
+@value hoverColor from '../../common.css';
+@value hintHeight 20;
+
+.hints {
+	box-sizing: border-box;
+	position: absolute;
+	z-index: 30000;
+	composes: border from '../../common.css';
+	background-color: white;
+	max-height: 180px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0px;
+    user-select: none;
+}
+
+.wrapper {
+	display: inline-block;
+    width: 100%;
+}
+
+.hint {
+	composes: defaultFont from '../../common.css';
+	height: hintHeight;
+	cursor: pointer;
+	white-space: nowrap;
+	padding: 0px 4px;
+	line-height: 17px;
+}
+
+.selected {
+	background: hoverColor;
+}

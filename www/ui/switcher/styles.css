@@ -1,0 +1,68 @@
+@value faceColor,defaultShadow from '../common.css';
+
+:local .root {
+	box-sizing: content-box;
+	background-color: faceColor;	
+	height: 27px;	
+}
+
+:local .item {
+	composes: buttonFace from '../common.css';	
+	display: inline-block;
+	box-sizing: border-box;
+	border: 2px outset #eee;
+	width: 27px;
+	height: 27px;
+	cursor: pointer;
+}
+
+:local .itemVertical {
+	display: block;
+}
+
+:local .itemSelected {
+	border-color: #9aa;
+	border-style: inset;
+}
+
+:local .image {
+	user-select: none;
+	box-sizing: border-box;
+	border: 1px solid #ddd;
+	width: 100%;
+	height: 100%;
+}
+
+:local .itemTooltip::after {
+	background: white;
+	border: 1px solid #eee;
+	box-shadow: defaultShadow;
+	opacity: 0;
+	padding: 3px 7px;
+	position: absolute;
+	visibility: hidden;
+	white-space: nowrap;
+	z-index: 11;
+}
+
+:local .itemTooltip:hover::after {
+	opacity: 1; 
+	visibility: visible;
+}
+
+:local .itemTopRightTooltip::after {
+	content: attr(data-tooltip); 
+	margin-top: -32px;
+	margin-left: -12px;
+}
+
+:local .itemTopLeftTooltip::after {
+	content: attr(data-tooltip); 
+	margin-top: -32px;
+	margin-left: -12px;
+	transform: translateX(-100%);
+}
+
+:local .disabled {
+	background: #ebebe4 !important;
+}

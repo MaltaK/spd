@@ -1,0 +1,76 @@
+@value buttonColor, hoverColor, faceColor, lightColor, scrollBarThumbColor, scrollBarThumbHoverColor, darkColor from '../common.css';
+
+:local .box {
+	box-sizing: border-box;
+	overflow: hidden;
+	width: 100%;
+	height: 100%;
+	background-color: faceColor;
+	user-select: none;
+	-moz-user-select: -moz-none;
+}
+
+:local .button {
+	composes: border from '../common.css';
+	composes: buttonFace from '../common.css';
+	box-sizing: border-box;
+	width: 100%;
+	height: 100%;
+}
+
+:local .buttonImage {
+	user-drag: none;
+	-webkit-user-drag: none;
+	-moz-user-drag: none;
+	width: 8px;
+	height: 8px;
+}
+
+:local .button:hover:not(.buttonPressed) {
+	background: hoverColor;		
+}
+
+:local .buttonPressed {
+	background: darkColor;
+}
+
+:local .track {
+	box-sizing: border-box;
+	border: 1px solid scrollBarThumbColor;
+	width: 100%;
+	height: 100%;
+	background: lightColor;
+	position: relative;
+}
+
+:local .horizontalTrack {
+	composes: track;
+	border-left: none;
+	border-right: none;
+}
+
+:local .verticalTrack {
+	composes: track;
+	border-top: none;
+	border-bottom: none;
+}
+
+:local .thumb {
+	box-sizing: border-box;
+	position: absolute;
+	background: scrollBarThumbColor;
+	overflow: hidden;
+}
+
+:local .thumb:hover:not(.thumbScrolling) {
+	background: scrollBarThumbHoverColor;
+}
+
+:local .thumbScrolling {
+	background: darkColor;
+}
+
+:local .thumbSpacer {
+	background: transparent;
+	position: absolute;
+}

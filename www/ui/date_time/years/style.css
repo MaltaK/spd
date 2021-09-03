@@ -1,0 +1,23 @@
+:local .cell {
+    padding: 0;
+}
+
+:local .item {
+    text-align: center;
+    box-sizing: border-box;
+    border-radius: 3px;
+    cursor: pointer;
+    line-height: 27px;
+}
+
+:local .item:hover {
+    background-color: #e6e6fa;
+}
+
+:local .selected, :local .selected:hover {
+    background-color: #6495ed;
+}
+
+:local .outOfBoundaries {
+    color: #a9a9a9;
+}

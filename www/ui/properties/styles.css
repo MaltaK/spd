@@ -1,0 +1,12 @@
+:local .keyCell {
+	width: 0.001%;
+	white-space: nowrap;
+}
+
+:local .valueCell {
+	cursor: text;
+}
+
+:local .editingCell {
+	padding: 0px;
+}

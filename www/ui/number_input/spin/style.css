@@ -1,0 +1,28 @@
+:local .spin {
+    position: absolute;
+	right: 3px;
+	top: 0;
+	width: 10px;
+	height: 8px;
+	z-index: 10;
+	cursor: pointer;
+}
+
+:local .up {
+    top: 5px;
+}
+
+:local .down {
+	top: 16px;
+}
+
+:local .pressed {
+    width: 8px;
+    height: 6px;
+    padding: 1px;
+}
+
+:local .disabled {
+    opacity: 0.7;
+    cursor: unset;
+}

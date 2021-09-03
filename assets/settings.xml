@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<OBJECTS>
+    <OBJECT objectID="M" name="Малино" port="12000">
+		<INTERFACES>
+			<INTERFACE ip="10.248.18.3" port="10000" interface_id="1" priority="1" gateway_ip="" />
+			<INTERFACE ip="10.18.32.222" port="10000" interface_id="2" priority="2" gateway_ip="" />
+        </INTERFACES>
+		<USERS>
+			<USER name="denis" ip="127.0.0.1"/>
+			<USER name="test" ip="127.0.0.1"/>
+			<USER name="malino" ip="127.0.0.1"/>
+			<USER name="root" ip="127.0.0.1"/>
+		</USERS>	
+		<LOGICAL_NAMES>
+			<LOGICAL_NAME logicalName="test" destObject="C" destHost="127.0.0.1" destName="denis">
+				<HANDLER>
+					<DO_COPY>1</DO_COPY>
+					<COPY_PATH>/tmp/</COPY_PATH>
+					<CHANGE_NAME>1</CHANGE_NAME>
+					<FILE_NAME>test0.test0</FILE_NAME>
+					<OVERWRITE>1</OVERWRITE>
+					<DELETE_SRC>1</DELETE_SRC>
+					<EXEC_APP>0</EXEC_APP>
+					<APP_NAME>/opt/rbt/ufd/UFD</APP_NAME>
+					<WAIT_EXEC>1</WAIT_EXEC>
+					<WAIT_TIME>0</WAIT_TIME>
+					<PASSED_FULL_FILE_NAME>1</PASSED_FULL_FILE_NAME>
+					<PASSED_FILE_NAME>0</PASSED_FILE_NAME>
+					<PASSED_LOGICAL_NAME>1</PASSED_LOGICAL_NAME>
+				</HANDLER>
+				<HANDLER>
+					<DO_COPY>1</DO_COPY>
+					<COPY_PATH>/tmp/qwerty</COPY_PATH>
+					<CHANGE_NAME>1</CHANGE_NAME>
+					<FILE_NAME>test1.test1</FILE_NAME>
+					<OVERWRITE>1</OVERWRITE>
+					<DELETE_SRC>1</DELETE_SRC>
+					<EXEC_APP>0</EXEC_APP>
+					<APP_NAME>/opt/rbt/cstclient/cstclient</APP_NAME>
+					<WAIT_EXEC>0</WAIT_EXEC>
+					<WAIT_TIME>0</WAIT_TIME>
+					<PASSED_FULL_FILE_NAME>1</PASSED_FULL_FILE_NAME>
+					<PASSED_FILE_NAME>0</PASSED_FILE_NAME>
+					<PASSED_LOGICAL_NAME>1</PASSED_LOGICAL_NAME>
+				</HANDLER>
+			</LOGICAL_NAME>
+			<LOGICAL_NAME logicalName="test1" destObject="C" destHost="" destName="denis"/>
+			<LOGICAL_NAME logicalName="test2" destObject="C" destHost="127.0.0.1" destName=""/>
+			<LOGICAL_NAME logicalName="test3" destObject="M" destHost="127.0.0.1" destName="denis">
+				<HANDLER>
+					<DO_COPY>0</DO_COPY>
+					<COPY_PATH>/opt/rbt/niitp/</COPY_PATH>
+					<CHANGE_NAME>1</CHANGE_NAME>
+					<FILE_NAME>test2.test2</FILE_NAME>
+					<OVERWRITE>1</OVERWRITE>
+					<DELETE_SRC>1</DELETE_SRC>
+					<EXEC_APP>1</EXEC_APP>
+					<APP_NAME>kate</APP_NAME>
+					<WAIT_EXEC>1</WAIT_EXEC>
+					<WAIT_TIME>0</WAIT_TIME>
+					<PASSED_FULL_FILE_NAME>1</PASSED_FULL_FILE_NAME>
+					<PASSED_FILE_NAME>0</PASSED_FILE_NAME>
+					<PASSED_LOGICAL_NAME>1</PASSED_LOGICAL_NAME>
+				</HANDLER>
+			</LOGICAL_NAME>
+			<LOGICAL_NAME logicalName="test4" destObject="" destHost="" destName=""/>
+			<LOGICAL_NAME logicalName="test5" destObject="" destHost="" destName="denis"/>
+			<LOGICAL_NAME logicalName="test6" destObject="" destHost="127.0.0.1" destName=""/>
+			<LOGICAL_NAME logicalName="test7" destObject="" destHost="127.0.0.1" destName="denis"/>
+		</LOGICAL_NAMES>
+    </OBJECT>
+    <OBJECT objectID="C" name="Центр" type="1" port="12000">
+		<INTERFACES>
+			<INTERFACE ip="10.77.103.144" port="10000" interface_id="1" priority="1" gateway_ip=""/>
+			<INTERFACE ip="127.0.0.1" port="10000" interface_id="2" priority="2" gateway_ip="" />
+		</INTERFACES>
+		<USERS>
+			<USER name="denis" ip="127.0.0.1"/>
+			<USER name="qwerty" ip="127.0.0.1"/>
+			<USER name="test" ip="127.0.0.1"/>
+			<USER name="centr1" ip="127.0.0.1"/>
+		</USERS>
+		<LOGICAL_NAMES>
+			<LOGICAL_NAME logicalName="test" destObject="C" destHost="127.0.0.1" destName="denis">
+				<HANDLER>
+					<DO_COPY>1</DO_COPY>
+					<COPY_PATH>/tmp/</COPY_PATH>
+					<CHANGE_NAME>1</CHANGE_NAME>
+					<FILE_NAME>test0.test0</FILE_NAME>
+					<OVERWRITE>1</OVERWRITE>
+					<DELETE_SRC>1</DELETE_SRC>
+					<EXEC_APP>0</EXEC_APP>
+					<APP_NAME>/opt/rbt/ufd/UFD</APP_NAME>
+					<WAIT_EXEC>1</WAIT_EXEC>
+					<WAIT_TIME>0</WAIT_TIME>
+					<PASSED_FULL_FILE_NAME>1</PASSED_FULL_FILE_NAME>
+					<PASSED_FILE_NAME>0</PASSED_FILE_NAME>
+					<PASSED_LOGICAL_NAME>1</PASSED_LOGICAL_NAME>
+				</HANDLER>
+				<HANDLER>
+					<DO_COPY>1</DO_COPY>
+					<COPY_PATH>/tmp/qwerty</COPY_PATH>
+					<CHANGE_NAME>1</CHANGE_NAME>
+					<FILE_NAME>test1.test1</FILE_NAME>
+					<OVERWRITE>1</OVERWRITE>
+					<DELETE_SRC>1</DELETE_SRC>
+					<EXEC_APP>0</EXEC_APP>
+					<APP_NAME>/opt/rbt/cstclient/cstclient</APP_NAME>
+					<WAIT_EXEC>0</WAIT_EXEC>
+					<WAIT_TIME>0</WAIT_TIME>
+					<PASSED_FULL_FILE_NAME>1</PASSED_FULL_FILE_NAME>
+					<PASSED_FILE_NAME>0</PASSED_FILE_NAME>
+					<PASSED_LOGICAL_NAME>1</PASSED_LOGICAL_NAME>
+				</HANDLER>
+			</LOGICAL_NAME>
+			<LOGICAL_NAME logicalName="test1" destObject="C" destHost="" destName="denis"/>
+			<LOGICAL_NAME logicalName="test2" destObject="C" destHost="127.0.0.1" destName=""/>
+			<LOGICAL_NAME logicalName="test3" destObject="M" destHost="127.0.0.1" destName="denis">
+				<HANDLER>
+					<DO_COPY>0</DO_COPY>
+					<COPY_PATH>/opt/rbt/niitp/</COPY_PATH>
+					<CHANGE_NAME>1</CHANGE_NAME>
+					<FILE_NAME>test2.test2</FILE_NAME>
+					<OVERWRITE>1</OVERWRITE>
+					<DELETE_SRC>1</DELETE_SRC>
+					<EXEC_APP>1</EXEC_APP>
+					<APP_NAME>kate</APP_NAME>
+					<WAIT_EXEC>1</WAIT_EXEC>
+					<WAIT_TIME>0</WAIT_TIME>
+					<PASSED_FULL_FILE_NAME>1</PASSED_FULL_FILE_NAME>
+					<PASSED_FILE_NAME>0</PASSED_FILE_NAME>
+					<PASSED_LOGICAL_NAME>1</PASSED_LOGICAL_NAME>
+				</HANDLER>
+			</LOGICAL_NAME>
+			<LOGICAL_NAME logicalName="test4" destObject="" destHost="" destName=""/>
+			<LOGICAL_NAME logicalName="test5" destObject="" destHost="" destName="denis"/>
+			<LOGICAL_NAME logicalName="test6" destObject="" destHost="127.0.0.1" destName=""/>
+			<LOGICAL_NAME logicalName="test7" destObject="" destHost="127.0.0.1" destName="denis"/>
+		</LOGICAL_NAMES>
+    </OBJECT>
+</OBJECTS>

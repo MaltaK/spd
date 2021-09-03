@@ -1,0 +1,29 @@
+:local .root {
+	composes: border from '../common.css';
+	user-select: none;
+	-moz-user-select: -moz-none;
+}
+
+:local .caption {
+	composes: defaultFont from '../common.css';
+	text-align: center;
+	width: 100%;
+}
+
+:local .item {
+	line-height: 16px;
+}
+
+:local .mark {
+	height: 12px;
+	width: 12px;
+	margin-top: 2px;
+	cursor: pointer;
+}
+
+:local .label {
+	display: inline-block;
+	vertical-align: top;
+	margin-left: 4px;	
+	cursor: pointer;
+}

@@ -1,0 +1,14 @@
+:local .root {
+	display: block;
+	height: 6px;
+	margin-top: 0px;
+	margin-bottom: 3px;
+	padding-left: 8px;
+}
+
+:local .hr {
+	composes: border from '../common.css';
+	border-bottom: none;
+	border-left: none;
+	border-right: none;
+}

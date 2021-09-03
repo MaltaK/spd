@@ -1,0 +1,81 @@
+@value sliderThickness 5;
+@value hideButtonMargin -4;
+@value hideButtonSize 8;
+@value hideButtonLength 96;
+@value hideButtonBorderRadius 3px;
+@value hideButtonBorder 1px solid #aaa;
+@value sliderColor #ddd;
+@value sliderHoverColor #ccc;
+@value hideButtonColor #bbb;
+
+:local .root {
+	composes: face from '../common.css';
+	box-sizing: border-box;
+	position: absolute;
+	z-index: 1000;
+	border-radius: 0px;
+}
+
+:local .container {
+	overflow: auto;
+}
+
+:local .slider {
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+	background-color: sliderColor;		
+	user-select: none;
+	user-drag: none;
+	border: none;
+}
+
+:local .slider:hover {
+	background-color: sliderHoverColor;	
+}
+
+:local .sliderbottom {	
+	cursor: n-resize;
+}
+
+:local .sliderright {
+	cursor: w-resize;
+}
+
+:local .hide {
+	background-color: hideButtonColor;
+	cursor: pointer;
+	border: hideButtonBorder;
+}
+
+:local .hidebottom {
+	border-top-left-radius: hideButtonBorderRadius;
+	border-top-right-radius: hideButtonBorderRadius;
+	margin-top: hideButtonMargin;
+	width: hideButtonLength;
+	height: hideButtonSize;
+}
+
+:local .hideright {
+	border-top-left-radius: hideButtonBorderRadius;
+	border-bottom-left-radius: hideButtonBorderRadius;
+	margin-left: hideButtonMargin;
+	height: hideButtonLength;
+	width: hideButtonSize;
+}
+
+:local .bottom {
+	bottom: 0px;
+	left: 0px;
+	border-left: none;
+	border-bottom: none;
+	border-right: none;
+}
+
+:local .right {
+	top: 0px;
+	right: 0px;
+	border-top: none;
+	border-right: none;
+	border-bottom: none;
+}

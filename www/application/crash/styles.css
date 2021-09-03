@@ -1,0 +1,10 @@
+:local .root {
+	margin-left: 15px;
+    margin-top: 15px;
+    background-color: rgb(255, 240, 240);
+    color: rgb(255, 85, 85);
+}
+
+:local .root span:first-child {
+    color: blue;
+}

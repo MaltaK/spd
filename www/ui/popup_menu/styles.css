@@ -1,0 +1,30 @@
+@value hoverColor from '../common.css';
+
+.items {
+	padding: 4px 0px;
+}
+
+.item {
+	cursor: default;
+	padding: 2px 12px;
+}
+
+.item:hover {
+	background-color: hoverColor;
+}
+
+.moreItem {
+	padding: 2px 20px 2px 12px;
+}
+
+.moreArrow {
+    right: 0;
+    height: 13px;
+    position: absolute;
+    padding: 3px;
+}
+
+.more {
+    composes: face from '../common.css';
+    border-radius: 0 2px 2px 0;
+}

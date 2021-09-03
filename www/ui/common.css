@@ -1,0 +1,52 @@
+@value borderColor #91b6b3;
+@value lightBorderColor #ddd;
+@value buttonColor #e2f1f3;
+@value hoverColor #accac8;
+@value faceColor #eee;
+@value lightColor #f0f0f0;
+@value darkColor #91b6b3;
+@value scrollBarThumbColor #c7c7c7;
+@value scrollBarThumbHoverColor #aaa;
+@value selectedColor #9ad1cd;
+@value cursorOutlineColor #344eaf;
+@value defaultShadow rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
+
+:local .defaultFont {
+	font-family: Arial, sans-serif;
+	font-size: 13.3333px;
+}
+
+:local .border {
+	border: 1px solid borderColor;
+}
+
+:local .face {
+	composes: border;
+	background-color: faceColor;
+	border-radius: 2px;
+	box-shadow: defaultShadow;
+	white-space: nowrap;
+}
+
+:local .buttonFace {
+	background: linear-gradient(to top left, hoverColor, buttonColor);
+}
+
+:local .tableHeaderFace {
+	background: linear-gradient(#e2f1f3,#accac8);
+}
+
+:local .tableCell {
+	text-overflow: ellipsis;
+    padding-left: 4px;
+    padding-top: 5px;
+	padding-right: 4px;
+	line-height: 18px;
+}
+
+:local .tableHeader {
+	composes: tableHeaderFace;
+	composes: tableCell;
+    padding-left: 8px;
+    padding-top: 5px;
+}

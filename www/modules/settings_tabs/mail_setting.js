@@ -1,0 +1,346 @@
+// выпадающее окно Настройка рассылок в Настройках
+import React from 'react';
+import css from './styles.css';
+import {Button, Label, Layout, ETable, TextInput, Modal, TextInputHinted, Checkbox, Select, PopupMenu} from '../../ui';
+
+export default class MailSetting extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            tableRows: props.settings,
+            allRows: props.settings,
+            names: props.settings.map(el => ({key: el._logicalName, caption: el._logicalName, id: el._logicalName, _logicalName: el._logicalName})),
+            selectedTreeItem: null,
+            startedSettings: null,
+            tableSort: null,
+            tableSortName: null,
+            columns: [],
+            tableSelected: {},
+            tableNameSelected: {},
+        };
+        this.tableColumns = [
+            { key: '_destObject', caption: 'Объект', width: 220},
+            { key: '_destHost', caption: 'Хост', width: 220},
+            { key: '_destName', caption: 'Пользователь', width: 220},
+            { key: '_priority', caption: 'Приоритет', width: 220},
+        ];
+        this.tableColumnsName = [{ key: '_logicalName', caption: 'Логическое имя', width: 300}];
+        this.popupItems = [{ key: 'add', caption: 'Добавить' }];
+    }
+
+    componentDidUpdate = prevProps => {
+        if (prevProps.settings !== this.props.settings) {
+            this.setState({ tableRows: this.props.settings, allRows: this.props.settings, tableSelected: {}, tableNameSelected: {}});
+        }
+    }
+
+    handleEtableEdit = (key, col, value = '') => {
+        let tableRows = JSON.parse(JSON.stringify(this.state.tableRows));
+        if (col == '_logicalName') {
+            let oldValue = tableRows.find(el => el.id == key)[col];
+            tableRows = tableRows
+                .map(el => el._logicalName == oldValue ? ({...el, _logicalName: value}) : el);
+        }
+        tableRows.find(el => el.id == key)[col] = value || '';
+        this.setState({tableRows});
+        this.props.setSettings(tableRows);
+    }
+
+    renderEditor = ({ key, value, onChange, finishEdit, cancelEdit }) => {
+        if (key === 'id' || key === 'objectID') return;
+        if (key === '_destObject') return (
+            <Select
+                items={this.props.objects || []}
+                pure
+                width="100%"
+                value={value}
+                onChange={onChange}
+                onKeyUp={this.handleKeyUp.bind(null, finishEdit, cancelEdit)}/>
+        );
+        return (
+            <TextInput
+                pure
+                width="100"
+                value={value}
+                onChange={onChange}
+                onKeyUp={this.handleKeyUp.bind(null, finishEdit, cancelEdit)}/>
+        );
+    }
+
+    handleKeyUp = (finishEdit, cancelEdit, event) => {
+        if (event.key === 'Enter') finishEdit();
+        if (event.key === 'Escape') cancelEdit();
+    }
+
+    renderSetupFilter = () => {
+        if (!this.state.setupFilter)
+            return null;
+        const onRequestClose = () => {
+            this.setState({ setupFilter: null });
+        };
+        const handleFilterValueChange = value => {
+            let { setupFilter } = this.state;
+            this.setState({ setupFilter: {...setupFilter, value } });
+        };
+        const handleExactChange = exact => {
+            let { setupFilter } = this.state;
+            if (!exact)
+                setupFilter.filterType = { list: true, range: true };
+            else
+                setupFilter.filterType = { exact: true };
+            this.setState({ setupFilter: { ...setupFilter } });
+        };
+        const handleConfirm = () => {
+            let { setupFilter } = this.state;
+            if (setupFilter.value) {
+                this.tableColumns[setupFilter.colIndex].filterValue = setupFilter.value;
+                this.tableColumns[setupFilter.colIndex].filter = true;
+                this.tableColumns[setupFilter.colIndex].filterType = setupFilter.filterType;
+            }
+            if (setupFilter.from && setupFilter.to) {
+                this.tableColumns[setupFilter.colIndex].filterValue = [ setupFilter.from, setupFilter.to ];
+                this.tableColumns[setupFilter.colIndex].filter = true;
+                this.tableColumns[setupFilter.colIndex].filterType = setupFilter.filterType;
+            }
+            this.setState({ setupFilter: null, tableRows: this.personalListToTable(this.state.allRows)});
+        };
+        const handleKeyDown = event => {
+            if (event.keyCode == 27)
+                return onRequestClose();
+            if (event.keyCode == 13)
+                return handleConfirm();
+        };
+        const gatherFilterHints = () => {
+            let { setupFilter } = this.state;
+            if (this.tableColumns[setupFilter.colIndex].values)
+                return null;
+        };
+        let filterHints = gatherFilterHints();
+        return (
+            <Modal show={true} onRequestClose={onRequestClose}>
+                <Layout up width="200" height="100">
+                    <div style={{ textAlign: 'center' }}>
+                        <Label caption={this.tableColumns[this.state.setupFilter.colIndex].caption}/>
+                    </div>
+                    <div>
+                        { filterHints ?
+                            <TextInputHinted hints={filterHints} value={this.state.setupFilter.value} onChange={handleFilterValueChange} focus={true} onKeyDown={handleKeyDown}/> :
+                            <TextInput width={175} value={this.state.setupFilter.value} onChange={handleFilterValueChange} focus={true} onKeyDown={handleKeyDown}/>
+                        }
+                    </div>
+                    <Checkbox caption="Точное совпадение" value={'exact' in this.state.setupFilter.filterType} onChange={handleExactChange}/>
+                    <div>
+                        <Button width="50%" caption="Применить" onClick={handleConfirm}/>
+                        <Button width="50%" caption="Отмена" onClick={onRequestClose}/>
+                    </div>
+                </Layout>
+            </Modal>
+        );
+    }
+
+    personalListToTable(list){
+        let table = list;
+        let filters = this.tableColumns.filter(x => x.filter);
+        const checkFilter = (value, filter, filterType = {}, isDate) => {
+            let conds = filterType['list'] && !isDate ? filter.split(',') : [filter];
+            for (let cond of conds) {
+                let range = (filterType['range'] ? cond.split('-') : [cond]).map(x => x.trim());
+                if (range.length == 2) {
+                    if (!isNaN(range[0]) && !isNaN(range[1]) && !isNaN(value)) {
+                        if ((Number(range[0]) <= Number(value)) && (Number(value) <= Number(range[1]))) return true;
+                    } else if ((range[0] <= value) && (value <= range[1])) return true;
+                } else
+                if (filterType['exact']) return value === cond;
+                else {
+                    if (!cond.match(/[*?]/))
+                        cond = '*' + cond + '*';
+                    let regExp = cond.trim().replace(/\./g, '\\.');
+                    regExp = regExp.replace(/\+/g, '\\+');
+                    regExp = regExp.replace(/\*/g, '.*');
+                    regExp = regExp.replace(/\?/g, '.');
+                    let r = new RegExp('^' + regExp + '$', 'i');
+                    if (value && String(value).match(r) != null)
+                        return true;
+                }
+            }
+            return false;
+        };
+        let filteredRows = filters.length > 0 ? table.filter(row => {
+            let f = filters.reduce((t, col) => {
+                if (!t) return t;
+                let c = false;
+                if (col.values && row[col.key]) {
+                    for (let v of col.values(row[col.key])) {
+                        c = checkFilter(v, col.filterValue, col.filterType, col.isDate);
+                        if (c) break;
+                    }
+                } else c = checkFilter(row[col.key], col.filterValue, col.filterType, col.isDate);
+                return c;
+            }, true);
+            return f;
+        }) : [...table];
+
+        return filteredRows;
+    }
+
+    handleTableSelectedChange = tableSelected => this.setState({ tableSelected });
+
+    handleTableNameSelectedChange = tableNameSelected => {
+        this.setState({ tableNameSelected, tableSelected: {} });
+        this.props.getTableSelected(tableNameSelected);
+    }
+
+    handleTableSortChange = value => {
+        this.setState({tableSort: value, tableScrollToRow: null }, () => this.setState({ tableScrollToRow: this.state.tableCursor}));
+    }
+
+    handleTableSortChangeName = value => {
+        this.setState({tableSortName: value, tableScrollToRowName: null }, () => this.setState({ tableScrollToRowName: this.state.tableCursorName}));
+    }
+
+    handleColumnHeaderStyle = index => {
+        if (this.tableColumns[index]['filter'])
+            return { background: 'linear-gradient(#f0f0f0,#a0a0a0)' };
+        return {};
+    }
+
+    handleColumnHeaderStyleName = index => {
+        if (this.tableColumnsName[index]['filter'])
+            return { background: 'linear-gradient(#f0f0f0,#a0a0a0)' };
+        return {};
+    }
+
+    handleTableColumnChange = (key, value) => {
+        this.setState({ [key]: value });
+    }
+
+    handleHeaderPopupSelect = (item, colIndex) => {
+        switch (item.key) {
+            case 'addFilter':
+                let col = this.tableColumns[colIndex];
+                this.setState({ setupFilter: { colIndex, value: col['filterValue'], filterType: col['filterType'] || { list: true } } });
+                item.key = null;
+                break;
+            case 'removeFilter':
+                this.tableColumns[colIndex]['filter'] = null;
+                item.key = null;
+                this.setState({tableRows: this.personalListToTable(this.state.allRows)});
+                break;
+        }
+    }
+
+    handleHeaderPopup = (items, colIndex) => {
+        if (this.tableColumns[colIndex].filter)
+            items.push({ key: 'removeFilter', caption: 'Отменить фильтр' });
+        else
+            items.push({ key: 'addFilter', caption: 'Фильтр...' });
+    }
+
+    handleContextMenu = (event, item) => { // item == undefined => контекстное меню вызвано для пустого места
+        event.preventDefault();
+        let clientX = event.clientX;
+        if (window.innerWidth - clientX < 300)
+            clientX = clientX - (300 - (window.innerWidth - clientX));
+        this.handleTableNameSelectedChange({[item.id]: true});
+        this.setState({ popupOpen: true, popupX: clientX, popupY: event.clientY });
+    }
+
+    handlePopupSelect = item => {
+        if (item?.key == 'add') {
+            let key = this.state.tableRows.find(el => el.id == Object.keys(this.state.tableNameSelected)[0])._logicalName;
+            let newId = this.state.tableRows.sort((a, b) => a.id - b.id)[this.state.tableRows.length - 1].id + 1;
+            let tableRows = [
+                ...this.state.tableRows, {id: newId, _destHost: '',
+                    _destName: '', _destObject: this.props.objects.find(el => el.active).caption || '', _logicalName: key},
+            ];
+            this.setState({tableRows, allRows: tableRows});
+            this.props.setSettings(tableRows);
+        }
+        this.setState({ popupOpen: false });
+    }
+
+    render() {
+        let names = this.state.tableRows.reduce((acc, elem) => acc.find(el => elem._logicalName == el._logicalName)
+            ? acc : [ ...acc, elem ], []);
+        let rows = [];
+        if (this.state.tableNameSelected && Object.keys(this.state.tableNameSelected).length) {
+            let key = this.state.tableRows.find(el => el.id == Object.keys(this.state.tableNameSelected)[0])._logicalName;
+            rows = this.state.tableRows.filter(el => el._logicalName == key);//selectedTreeItem);
+        }
+        return (
+            <div style={{width: '100%'}} className={css.calcHeight2}>
+                <div style={{display: 'inline-block', width: '300px'}} className={css.calcHeight2}>
+                    {/* таблица логических имен */}
+                    <ETable
+                        renderEditor={this.renderEditor}
+                        onEdit={this.handleEtableEdit}
+                        rows={names}
+                        columns={this.tableColumnsName}
+                        onCellContextMenu={this.handleContextMenu}
+                        rowHeight={20}
+                        width="100%"
+                        height="99%"
+                        rightScrollBuffer= {0}
+                        bottomScrollBuffer= {0}
+                        bottomScrollBarVisible = {false}
+                        rightScrollBarVisible = {false}
+                        rowKey={row => row.id}
+                        selectMode="normal"
+                        selected={this.state.tableNameSelected}
+                        onSelectedChange={this.handleTableNameSelectedChange}
+                        sort={this.state.tableSortName}
+                        onSortChange={this.handleTableSortChangeName}
+                        onColumnHeaderStyle={this.handleColumnHeaderStyleName}
+                        columnWidths={this.state.tableColumnWidthsName}
+                        onColumnWidthsChange={this.handleTableColumnChange.bind(null, 'tableColumnWidthsName')}
+                        columnsOrder={this.state.tableColumnsOrderName}
+                        onColumnsOrderChange={this.handleTableColumnChange.bind(null, 'tableColumnsOrderName')}
+                        hiddenColumns={this.state.tableHiddenColumnsName}
+                        onHiddenColumnsChange={this.handleTableColumnChange.bind(null, 'tableHiddenColumnsName')}
+                    />
+                </div>
+                {Object.keys(this.state.tableNameSelected).length ? //selectedTreeItem ?
+                    <div style={{display: 'inline-block', width: '70%'}} className={css.calcHeight2}>
+                        {/* таблица параметров логических имен */}
+                        <ETable
+                            renderEditor={this.renderEditor}
+                            onEdit={this.handleEtableEdit}
+                            rows={rows}
+                            columns={this.tableColumns}
+                            rowHeight={20}
+                            width="100%"
+                            height="99%"
+                            rightScrollBuffer= {0}
+                            bottomScrollBuffer= {0}
+                            bottomScrollBarVisible = {false}
+                            rightScrollBarVisible = {false}
+                            rowKey={row => row.id}
+                            selectMode="normal"
+                            selected={this.state.tableSelected}
+                            onSelectedChange={this.handleTableSelectedChange}
+                            sort={this.state.tableSort}
+                            onSortChange={this.handleTableSortChange}
+                            onColumnHeaderStyle={this.handleColumnHeaderStyle}
+                            onHeaderPopup={this.handleHeaderPopup}
+                            onHeaderPopupSelect={this.handleHeaderPopupSelect}
+                            columnWidths={this.state.tableColumnWidths}
+                            onColumnWidthsChange={this.handleTableColumnChange.bind(null, 'tableColumnWidths')}
+                            columnsOrder={this.state.tableColumnsOrder}
+                            onColumnsOrderChange={this.handleTableColumnChange.bind(null, 'tableColumnsOrder')}
+                            hiddenColumns={this.state.tableHiddenColumns}
+                            onHiddenColumnsChange={this.handleTableColumnChange.bind(null, 'tableHiddenColumns')}
+                        />
+                    </div> : null}
+                {this.renderSetupFilter()}
+                <PopupMenu
+                    open={this.state.popupOpen}
+                    x={this.state.popupX}
+                    y={this.state.popupY}
+                    onRequestClose={() => this.setState({ popupOpen: false })}
+                    items={this.popupItems}
+                    onSelect={this.handlePopupSelect}
+                />
+            </div>
+        );
+    }
+}

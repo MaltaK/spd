@@ -1,0 +1,43 @@
+:local .root {
+	height: 20px;
+	user-select: none;
+	-moz-user-select: -moz-none;
+}
+
+:local .pureRoot {
+	display: inline-block;
+	vertical-align: top;
+}
+
+:local .mark {
+	height: 12px;
+	width: 12px;
+	composes: border from '../common.css';
+	margin-top: 4px;
+	cursor: pointer;
+	background-color: white;
+	display: inline-block;
+	vertical-align: top;
+}
+
+:local .label {
+	composes: defaultFont from '../common.css';
+	display: inline-block;
+	margin-top: 3px;
+	margin-left: 4px;
+	cursor: pointer;
+	vertical-align: top;
+}
+
+:local .disabled {
+	cursor: not-allowed;
+	color: #545454;
+}
+
+:local .disabledImg:hover {
+    cursor: not-allowed;
+}
+
+:local .disabledImg:focus {
+    outline: none;
+}

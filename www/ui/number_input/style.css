@@ -1,0 +1,9 @@
+:local .wrapper {
+    height: 26px;
+	box-sizing: border-box;
+	position: relative;
+}
+
+:local .input {
+    /* padding: 0 15px 0 2px; */
+}

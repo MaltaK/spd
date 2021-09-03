@@ -1,0 +1,120 @@
+@value selectedColor, cursorOutlineColor, borderColor, lightBorderColor, faceColor from '../common.css';
+@value cellBorder: 1px solid lightBorderColor;
+@value cursorBorder: 1px dashed cursorOutlineColor;
+
+:local .root {	
+	composes: border from '../common.css';
+	composes: defaultFont from '../common.css';
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+	background-color: white;
+	user-select: none;
+	-moz-user-select: -moz-none;
+}
+
+:local .root:focus {
+	outline: none;
+}
+
+:local .header {
+	overflow-x: hidden;
+	overflow-y: show;
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+:local .headerColumn {
+	composes: tableHeader from '../common.css';
+	composes: border from '../common.css';
+	box-sizing: border-box;
+	border-top: none;
+	border-left: none;
+	overflow: hidden;
+	cursor: pointer;
+}
+
+:local .headerSortDiv {
+	position: absolute;
+	right: 4px;
+	top: 50%;
+	margin-top: -6px;
+}
+
+:local .headerSortSign {
+	display: inline-block;
+	height: 12px;
+	width: 12px;
+}
+
+:local .headerSortIndex {
+	display: inline-block;
+	font-size: 11px;
+	vertical-align: top;
+	margin-top: 0px;
+}
+
+:local .rows {
+	overflow: hidden;
+}
+
+:local .row {
+	box-sizing: border-box;
+	position: absolute;
+	border-top: cellBorder;
+	border-bottom: cellBorder;
+}
+
+:local .firstRow {
+	border-top: none;
+}
+
+:local .cursorRow {
+	/*background-color: selectedColor;*/
+	border-top: cursorBorder;
+	border-bottom: cursorBorder;
+	z-index: 10;
+}
+
+:local .selectedRow {
+	background-color: selectedColor;
+}
+
+:local .cell {
+	composes: tableCell from '../common.css';
+	border-right: cellBorder;
+	box-sizing: border-box;
+	position: absolute;
+	overflow: hidden;
+}
+
+:local .cursorCell {	
+	/*border-color: borderColor;*/
+}
+
+:local .firstRow>.cursorCell {
+	margin-top: -1px;
+}
+
+:local .rightLayout {
+	background-color: faceColor;
+}
+
+:local .headerWidthChanger {
+	position: absolute;
+	top: 0px;
+	width: 6px;
+	margin-left: -4px;
+	cursor: col-resize;
+	z-index: 10;
+}
+
+:local .setupRoot {
+	width: 320px;
+	height: 50vh;
+}
+
+:local .setupButtonPanel {
+	text-align: right;
+}

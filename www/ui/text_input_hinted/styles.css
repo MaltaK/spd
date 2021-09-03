@@ -1,0 +1,71 @@
+@value hoverColor from '../common.css';
+@value hintHeight 20;
+
+:local .root {
+	height: 20px;
+	box-sizing: border-box;	
+	position: relative;
+}
+
+:local .input {
+	composes: border from '../common.css';
+	composes: defaultFont from '../common.css';
+	height: 100%;
+	width: 100%;
+	padding: 0px 30px 0px 2px;
+	-moz-user-select: text;
+}
+
+:local .arrow {
+	position: absolute;
+	right: 0;
+	top: 1;
+	width: 12px;
+	height: 12px;
+	padding: 3px;
+	z-index: 10;
+	cursor: pointer;
+}
+
+:local .crest {
+	position: absolute;
+	right: 12;
+	top: 1;
+	width: 12px;
+	height: 12px;
+	padding: 3px;
+	z-index: 10;	
+	cursor: pointer;
+}
+
+:local .hidden {
+	display: none;
+}
+
+:local .hints {
+	box-sizing: border-box;
+	position: fixed;
+	z-index: 30000;
+	composes: border from '../common.css';
+	background-color: white;	
+	max-height: 180px;
+	overflow: auto;
+	padding: 0px;
+}
+
+:local .hintsWrapper {
+	display: inline-block;
+}
+
+:local .hint {
+	composes: defaultFont from '../common.css';
+	height: hintHeight;
+	cursor: pointer;
+	white-space: nowrap;
+	padding: 0px 4px;
+	line-height: 17px;
+}
+
+:local .hintSelected {
+	background: hoverColor;
+}

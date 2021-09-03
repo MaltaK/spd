@@ -1,0 +1,23 @@
+:local .caption {
+	composes: defaultFont from '../common.css';
+	white-space: nowrap;
+	padding-top: 3px;
+}
+
+:local .bold {
+	font-weight: bold;
+}
+
+:local .italic {
+	font-style: italic;
+}
+
+:local .wrap {
+	white-space: normal;
+	word-wrap: normal;
+}
+
+:local .noSelect {
+    user-select: none;
+	-moz-user-select: -moz-none;
+}

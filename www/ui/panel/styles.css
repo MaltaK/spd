@@ -1,0 +1,3 @@
+:local .root {
+    composes: face from '../common.css';
+}

@@ -1,0 +1,9 @@
+:local .input {
+    text-align: center;
+}
+
+:local .picker {
+    background-color: #ffffff;
+    user-select: none;
+    padding: 5px;
+}

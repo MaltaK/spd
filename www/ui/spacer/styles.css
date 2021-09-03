@@ -1,0 +1,11 @@
+:local .root {
+	display: inline-block;
+	height: 20px;
+	vertical-align: top;
+}
+
+:local .inner {
+	display: inline-block;
+	width: 100%;
+	vertical-align: text-top;
+}

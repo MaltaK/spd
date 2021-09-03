@@ -1,0 +1,71 @@
+@value buttonColor, hoverColor, defaultShadow from '../common.css';
+
+:local .button {
+	composes: border from '../common.css';
+	composes: buttonFace from '../common.css';
+	composes: defaultFont from '../common.css';
+	width: 100%;
+    height: 28px;
+    border-radius: 2px;
+	cursor: pointer;
+}
+
+:local .pressed {
+	background: #91b6b3;
+}
+
+:local .disabled {
+	cursor: not-allowed;
+}
+
+:local .button:hover:not(.pressed):not(.disabled) {
+    background: hoverColor;
+}
+
+:local .button:focus:not(.disabled) {
+    outline: 1px solid #7a9cd3;
+}
+
+:local .caption {
+	margin-top: -2px;
+	user-select: none;
+	-moz-user-select: -moz-none;
+}
+
+:local .tooltip::after {
+	background: white;
+	border: 1px solid #eee;
+	box-shadow: defaultShadow;
+	opacity: 0;
+	padding: 3px 7px;
+	position: absolute;
+	visibility: hidden;
+	white-space: nowrap;
+	z-index: 11;
+}
+
+:local .tooltip:hover::after {
+	opacity: 1; 
+	visibility: visible;
+}
+
+:local .tooltipTopRight::after {
+	content: attr(data-tooltip); 
+	margin-top: -44px;
+	margin-left: 0px;
+}
+
+:local .tooltipTopLeft::after {
+	content: attr(data-tooltip); 
+	margin-top: -44px;
+	margin-left: 0px;
+	transform: translateX(-100%);
+}
+
+:local .tooltipBootom::after {
+	content: attr(data-tooltip); 
+	margin-top: -18px;
+	margin-left: -9px;
+	/* transform: translateX(-100%); */
+}
+

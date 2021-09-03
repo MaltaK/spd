@@ -1,0 +1,10 @@
+.textarea {
+	composes: border from '../common.css';
+	composes: defaultFont from '../common.css';
+	padding: 0px 2px;
+	box-sizing: border-box;
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+	line-height: 17px;
+}

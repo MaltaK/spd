@@ -1,0 +1,34 @@
+:local .cell {
+    padding: 0;
+}
+
+:local .item {
+    box-sizing: border-box;
+    border-radius: 3px;
+    line-height: 15px;
+    text-align: center;
+    padding: 6px;
+    cursor: pointer;
+}
+
+:local .item:hover {
+    background-color: #e6e6fa;
+}
+
+:local .today {
+    border: solid 1px #000000;
+    padding: 4px;
+    margin: 1px;
+}
+
+:local .otherMonth {
+    color: #808080;
+}
+
+:local .outOfBoundaries {
+    color: #a9a9a9;
+}
+
+:local .selected, :local .selected:hover {
+    background-color: #6495ed;
+}

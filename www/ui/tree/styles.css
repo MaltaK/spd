@@ -1,0 +1,87 @@
+@value selectedColor, hoverColor from '../common.css';
+
+:local .tree {
+	composes: border from '../common.css';
+	box-sizing: border-box;
+	width: 100%;
+	height: 100%;
+	padding: 4px;
+	overflow: scroll;
+	background-color: white;
+	user-select: none;
+	-moz-user-select: -moz-none;
+}
+
+:local .children {
+	margin-left: 24px;
+}
+
+:local .item {
+
+}
+
+:local .checkbox {
+	display: inline-block;
+	margin-left: 2px;
+}
+
+:local .checkboxSpace {
+    width: 14px;
+}
+
+:local .label {
+	composes: defaultFont from '../common.css';
+	display: inline-block;
+	margin-left: 2px;
+	padding: 0px 3px;
+	vertical-align: top;
+	cursor: pointer;
+	border: 1px solid white;
+	border-radius: 3px;
+    line-height: 17px;
+    white-space: pre;
+}
+
+:local .labelSelected {
+	composes: border from '../common.css';
+	background: selectedColor;
+}
+
+:local .labelDragTarget {
+	background: hoverColor;
+}
+
+:local .label:hover:not(.labelSelected) {
+	background: hoverColor;
+}
+
+:local .opener {
+	display: inline-block;
+	height: 12px;
+	width: 12px;
+	margin-top: 4px;
+	background-color: white;
+	vertical-align: top;
+}
+
+:local .openerCanOpen {
+	cursor: pointer;
+}
+
+:local .openerImg {
+	width: 100%;
+	height: 100%;
+}
+
+:local .itemImg {
+	width: 18px;
+	height: 18px;
+	vertical-align: top;
+	margin-left: 6px;
+	margin-top: 1px;
+	cursor: pointer;
+}
+
+:local .dragCursor {
+	cursor: grabbing;
+}

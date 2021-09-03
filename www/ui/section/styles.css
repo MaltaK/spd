@@ -1,0 +1,23 @@
+:local .section {
+    /* autoprefixer: off */
+    display: -moz-box;
+    display: -webkit-box;
+    position: relative;
+}
+
+:local .row {
+    /* autoprefixer: off */
+    -moz-box-orient: horizontal;
+    -webkit-box-orient: horizontal;
+}
+
+:local .column {
+    /* autoprefixer: off */
+    -moz-box-orient: vertical;
+    -webkit-box-orient: vertical;
+}
+
+:local .spaceAround::before, .spaceAround::after {
+    content: '';
+    display: block;
+}

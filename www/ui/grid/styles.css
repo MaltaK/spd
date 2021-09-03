@@ -1,0 +1,40 @@
+:local .root {
+	overflow: auto;
+}
+
+:local .root::-webkit-scrollbar-corner {
+	background: rgba(0,0,0,0);
+}
+
+:local .table {
+	composes: defaultFont from '../common.css';
+	box-sizing: border-box;
+	border-collapse: collapse;
+}
+
+:local .tableDefault {
+	composes: border from '../common.css';
+	background-color: white;
+}
+
+:local .tr {
+	height: 20px;
+}
+
+:local .td {
+	composes: tableCell from '../common.css';
+}
+
+:local .tdDefault {
+	composes: border from '../common.css';
+}
+
+:local .th {
+	composes: border from '../common.css';
+	composes: tableHeader from '../common.css';
+}
+
+:local .hiddenRow {
+    height: 0;
+    overflow: hidden;
+}

@@ -1,0 +1,12 @@
+:local .root {
+	position: fixed;
+	z-index: 21000;
+}
+
+:local .face {
+	composes: face from '../common.css';
+}
+
+:local .up {
+	transform: translateY(-100%);
+}

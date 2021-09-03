@@ -1,0 +1,17 @@
+:local .setting_but {
+    text-align: left;
+    height: 30px !important;
+    padding: 4px 10px;
+    margin-bottom: -3px !important;
+}
+
+:local .calcHeight {
+    height: 95%;
+    height: -webkit-calc(100vh - 100px);
+    height: -moz-calc(100vh - 100px);
+    height: calc(100vh - 100px);
+}
+
+:local .setting_menu_but {
+    height: 60px;
+}

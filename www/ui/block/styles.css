@@ -1,0 +1,31 @@
+:local .root {
+	box-sizing: border-box;	
+    vertical-align: top;
+}
+
+:local .notPure {
+	/* padding-left: 8px;
+    padding-top: 4px; */
+    padding: 4px 10px;
+}
+
+:local .wrapper {
+	box-sizing: border-box;
+}
+
+:local .inline {
+	display: inline-block;
+}
+
+:local .fullWidth {
+	width: 100%;
+}
+
+:local .fullHeight {
+	height: 100%;
+}
+
+:local .container {
+	padding-bottom: 4px;
+	padding-right: 8px;
+}
